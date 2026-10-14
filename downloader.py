@@ -17,17 +17,19 @@ compatibility with the original script.
 from __future__ import annotations
 
 import asyncio
+import logging
 import os
 import re
 from pathlib import Path
-from typing import Optional
 
 import music_tag
-from mutagen.id3 import ID3, TIT2, TPE1, TALB, APIC, ID3NoHeaderError
+from mutagen.id3 import APIC, ID3, TALB, TIT2, TPE1, ID3NoHeaderError
 from yandex_music import Client, ClientAsync
 
-from config import YANDEX_MUSIC_TOKEN
 import downloaded_db as default_db
+from config import YANDEX_MUSIC_TOKEN
+
+log = logging.getLogger(__name__)
 
 DEFAULT_OUTPUT_DIR = Path("tracks")
 
@@ -46,7 +48,7 @@ def safe_filename(name: str) -> str:
     return re.sub(r'[\\/:*?"<>|]', '', name).strip()
 
 
-def _album_title(track) -> Optional[str]:
+def _album_title(track) -> str | None:
     """Return the first album title or ``None`` if the track has none."""
     albums = getattr(track, "albums", None)
     if not albums:
@@ -61,9 +63,9 @@ def apply_metadata(
     *,
     title: str,
     artist: str,
-    album: Optional[str],
-    lyrics: Optional[str],
-    cover_path: Optional[Path] = None,
+    album: str | None,
+    lyrics: str | None,
+    cover_path: Path | None = None,
 ) -> None:
     """Write lyrics + ID3 tags (including cover) to an mp3 file."""
     # 1. Lyrics via music_tag (best effort, never fail the download).
@@ -72,8 +74,8 @@ def apply_metadata(
             tagged = music_tag.load_file(str(path))
             tagged["lyrics"] = lyrics
             tagged.save()
-        except Exception:
-            pass
+        except Exception as e: # noqa: BLE001
+            log.debug("Не удалось записать текст для '%s': %s", path.name, e)
 
     # 2. ID3 tags via mutagen.
     try:
@@ -153,7 +155,7 @@ class TrackDownloader:
         track,
         mp3_path: Path,
         jpg_path: Path,
-        lyrics: Optional[str],
+        lyrics: str | None,
     ) -> None:
         """Apply metadata and remove the temporary cover file."""
         try:
@@ -173,18 +175,20 @@ class TrackDownloader:
                     pass
 
     @staticmethod
-    def _fetch_lyrics_sync(track) -> Optional[str]:
+    def _fetch_lyrics_sync(track) -> str | None:
         try:
             return track.get_lyrics().fetch_lyrics()
-        except Exception:
+        except Exception as e: # noqa: BLE001
+            log.debug("Нет текста для '%s': %s", track.title, e)
             return None
 
     @staticmethod
-    async def _fetch_lyrics_async(track) -> Optional[str]:
+    async def _fetch_lyrics_async(track) -> str | None:
         try:
             lyrics_obj = await track.get_lyrics_async()
             return await lyrics_obj.fetch_lyrics_async()
-        except Exception:
+        except Exception as e: # noqa: BLE001
+            log.debug("Нет текста для '%s': %s", track.title, e)
             return None
 
     # ------------------------------------------------------------------ #
@@ -204,13 +208,13 @@ class TrackDownloader:
         print(f"Скачивание: {track.title}")
         try:
             track.download(str(mp3_path))
-        except Exception as e:
+        except Exception as e: # noqa: BLE001
             print(f"Ошибка скачивания '{track.title}': {e}")
             return False
 
         try:
             track.download_cover(str(jpg_path))
-        except Exception as e:
+        except Exception as e: # noqa: BLE001
             # Cover failure must not skip the whole track.
             print(f"Ошибка обложки '{track.title}': {e}")
 
@@ -248,13 +252,13 @@ class TrackDownloader:
 
         try:
             await track.download_async(str(mp3_path))
-        except Exception as e:
+        except Exception as e: # noqa: BLE001
             print(f"Ошибка скачивания '{track.title}': {e}")
             return False
 
         try:
             await track.download_cover_async(str(jpg_path))
-        except Exception as e:
+        except Exception as e: # noqa: BLE001
             print(f"Ошибка обложки '{track.title}': {e}")
 
         lyrics = await self._fetch_lyrics_async(track)

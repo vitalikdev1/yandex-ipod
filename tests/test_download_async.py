@@ -1,10 +1,7 @@
-from pathlib import Path
-from unittest.mock import AsyncMock, MagicMock
+from unittest.mock import AsyncMock
 
 import pytest
-from mutagen.id3 import ID3
 
-import downloader
 from downloader import TrackDownloader
 
 pytestmark = pytest.mark.asyncio

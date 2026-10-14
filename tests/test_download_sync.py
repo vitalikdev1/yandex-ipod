@@ -1,4 +1,3 @@
-from pathlib import Path
 from unittest.mock import MagicMock
 
 import pytest
@@ -6,6 +5,7 @@ from mutagen.id3 import ID3
 
 import downloader
 from downloader import TrackDownloader
+
 
 @pytest.fixture(autouse=True)
 def _isolate(tmp_path, monkeypatch):

@@ -1,5 +1,7 @@
 import pytest
+
 from downloader import safe_filename
+
 
 @pytest.mark.parametrize("raw, expected", [
     ("Normal Song", "Normal Song"),

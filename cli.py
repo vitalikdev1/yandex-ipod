@@ -6,6 +6,7 @@ from pathlib import Path
 
 from i18n import SUPPORTED
 
+
 @dataclass(frozen=True)
 class Options:
     use_async: bool

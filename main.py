@@ -2,19 +2,19 @@ from __future__ import annotations
 
 import asyncio
 import sys
-from pathlib import Path
 
 from yandex_music.exceptions import NetworkError
 
 from cli import parse_args
 from client_factory import (
-    build_client,
-    build_client_async,
     YandexAuthError,
     YandexRegionBlocked,
+    build_client,
+    build_client_async,
 )
 from downloader import TrackDownloader
 from i18n import Translator
+
 
 def _print_fatal(err: BaseException, t: Translator) -> int:
     if isinstance(err, YandexRegionBlocked):
