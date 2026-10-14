@@ -39,6 +39,13 @@ jobs:
       - name: Install dependencies
         run: uv sync --all-groups
 
+      - name: Provide dummy config for imports
+        shell: bash
+        run: |
+            if [ ! -f config.py ]; then
+              echo "YANDEX_MUSIC_TOKEN = 'ci-dummy'" > config.py
+            fi
+
       - name: Ruff (lint)
         run: |
           uv --version
