@@ -38,12 +38,3 @@ exclude_lines = [
     "if __name__ == .__main__.:",
     "raise NotImplementedError",
 ]
-
-[tool.ruff.lint]
-select = ["E", "F", "W", "I", "UP", "B"]
-ignore = [
-    "E501",
-    "I001",
-    "BLE001",
-    "S110",
-]
