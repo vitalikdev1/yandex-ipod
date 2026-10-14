@@ -1,0 +1,40 @@
+[project]
+name = "yandex-ipod-2"
+version = "0.1.0"
+requires-python = ">=3.14"
+dependencies = [
+    "music-tag>=0.4.3",
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "yandex-music>=3.2.2",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "pytest-cov>=5.0",
+    "ruff>=0.6",
+]
+
+[tool.coverage.run]
+source = ["."]
+omit = [
+    "tests/*",
+    ".venv/*",
+    "config_example.py",
+]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+exclude_lines = [
+    "pragma: no cover",
+    "if __name__ == .__main__.:",
+    "raise NotImplementedError",
+]
