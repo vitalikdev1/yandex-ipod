@@ -40,7 +40,7 @@ jobs:
         run: uv sync --all-groups
 
       - name: Ruff (lint)
-      - run: |
+        run: |
           uv --version
           uv run python --version
           uv run ruff --version
