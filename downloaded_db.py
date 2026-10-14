@@ -16,7 +16,7 @@ def _hash_track(title: str, artist) -> str:
 
 def load_db() -> dict:
     if DB_PATH.exists():
-        with open(DB_PATH, "r", encoding="utf-8") as f:
+        with open(DB_PATH, encoding="utf-8") as f:
             return json.load(f)
     return {}
 
