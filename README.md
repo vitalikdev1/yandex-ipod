@@ -2,12 +2,14 @@
 
 [![Tests](https://github.com/vitalikdev1/yandex-ipod/actions/workflows/tests.yml/badge.svg)](https://github.com/vitalikdev1/yandex-ipod/actions/workflows/tests.yml)
 [![Tests](https://github.com/vitalikdev1/yandex-ipod/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/vitalikdev1/yandex-ipod/actions/workflows/tests.yml)
+
 [![Python](https://img.shields.io/badge/python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Async](https://img.shields.io/badge/async-supported-8A2BE2?style=for-the-badge&logo=python&logoColor=white)](#-cli-flags)
 [![Languages](https://img.shields.io/badge/lang-RU%20%7C%20EN-blue?style=for-the-badge&logo=googletranslate&logoColor=white)](#-cli-flags)
 [![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](#-license)
-[![Stars](https://img.shields.io/github/stars/vitalikdev1/yandex-ipod?style=for-the-badge&logo=github)](https://github.com/vitalikdev1/yandex-ipod/stargazers)
-[![Issues](https://img.shields.io/github/issues/vitalikdev1/yandex-ipod?style=for-the-badge&logo=github)](https://github.com/vitalikdev1/yandex-ipod/issues)
+
+[![GitHub stars](https://img.shields.io/github/stars/vitalikdev1/yandex-ipod?style=social)](https://github.com/vitalikdev1/yandex-ipod)
+[![GitHub issues](https://img.shields.io/github/issues/vitalikdev1/yandex-ipod)](https://github.com/vitalikdev1/yandex-ipod/issues)
 
 > Download your liked tracks from Yandex Music with full ID3 tags, cover art and lyrics — ready for your iPod, phone, or any offline player.
 
