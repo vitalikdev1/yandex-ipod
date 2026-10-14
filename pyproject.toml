@@ -1,7 +1,7 @@
 [project]
 name = "yandex-ipod-2"
 version = "0.1.0"
-requires-python = ">=3.14"
+requires-python = ">=3.10"
 dependencies = [
     "music-tag>=0.4.3",
     "pytest>=9.1.1",
